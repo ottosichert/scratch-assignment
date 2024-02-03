@@ -21,6 +21,8 @@ dependencies {
 
     // This dependency is used by the application.
     implementation(libs.guava)
+
+    implementation("com.github.victools:jsonschema-generator:4.33.1")
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
