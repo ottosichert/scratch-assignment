@@ -1,5 +1,7 @@
 package assignments.scratch.config;
 
-public record Config(int columns, int rows) {
+import java.util.Map;
+
+public record Config(int columns, int rows, Map<String, Symbol> symbols) {
   
 }
