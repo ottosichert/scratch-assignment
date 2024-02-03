@@ -3,12 +3,20 @@
  */
 package assignments.scratch;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Optional;
 
 import javax.annotation.Nullable;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.MapperFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.github.victools.jsonschema.generator.Option;
 import com.github.victools.jsonschema.generator.OptionPreset;
 import com.github.victools.jsonschema.generator.SchemaGenerator;
@@ -43,10 +51,23 @@ public class App {
     JsonNode jsonSchema = generator.generateSchema(Config.class);
 
     return jsonSchema.toPrettyString();
+  }
 
+  public Config parseJson(String json) throws JsonMappingException, JsonProcessingException {
+    ObjectMapper objectMapper = JsonMapper.builder()
+        .enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS)
+        .build();
+    return objectMapper.readValue(json, Config.class);
   }
 
   public static void main(String[] args) {
+    try {
+      String input = Files.readString(Paths.get("src/test/resources/config.json"));
+      System.out.println(new App().parseJson(input).toString());
+    } catch (IOException e) {
+      System.err.println("Could not read config file");
+      e.printStackTrace();
+    }
     System.out.println(new App().getSchema());
   }
 }
