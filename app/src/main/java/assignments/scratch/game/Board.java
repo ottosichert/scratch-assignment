@@ -37,6 +37,7 @@ public class Board {
   }
 
   public void setCell(int column, int row, String symbol) {
+    if (symbol == null) return;
     this.symbolCells.computeIfAbsent(symbol, v -> new ArrayList<>()).add(new int[]{ column, row });
   }
 
@@ -72,7 +73,7 @@ public class Board {
     // fill cells given by distribution on each coordinate
     for (int row = 0; row < this.rows; row++) {
       for (int column = 0; column < this.columns; column++) {
-        if (column == bonusColumn && row == bonusRow) continue;
+        if (this.bonus != null && column == bonusColumn && row == bonusRow) continue;
 
         String symbol = this.resolveCell(config, column, row);
         this.setCell(column, row, symbol);

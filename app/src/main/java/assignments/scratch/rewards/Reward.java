@@ -1,9 +1,8 @@
 package assignments.scratch.rewards;
 
-import java.math.BigDecimal;
-
 import assignments.scratch.game.Board;
+import assignments.scratch.game.Result;
 
 public interface Reward {
-  public BigDecimal calculate(Board board);
+  public Result calculate(Board board);
 }

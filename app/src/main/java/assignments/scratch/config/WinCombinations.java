@@ -14,7 +14,7 @@ public record WinCombinations(
   @Nullable @JsonProperty("covered_areas") List<List<String>> coveredAreas,
   When when
 ) {
-  enum When {
+  public enum When {
     SAME_SYMBOLS("same_symbols"),
     LINEAR_SYMBOLS("linear_symbols");
   

@@ -12,7 +12,7 @@ public record Symbol(
   @Nullable BigDecimal extra,
   @Nullable Impact impact
 ) {
-  enum Type {
+  public enum Type {
     STANDARD("standard"),
     BONUS("bonus");
   
@@ -28,7 +28,7 @@ public record Symbol(
     }
   }
   
-  enum Impact {
+  public enum Impact {
     MULTIPLY_REWARD("multiply_reward"),
     EXTRA_BONUS("extra_bonus"),
     MISS("miss");
