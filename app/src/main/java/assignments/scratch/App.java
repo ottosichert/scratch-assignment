@@ -4,6 +4,7 @@
 package assignments.scratch;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Optional;
@@ -24,8 +25,8 @@ import com.github.victools.jsonschema.generator.SchemaGeneratorConfig;
 import com.github.victools.jsonschema.generator.SchemaGeneratorConfigBuilder;
 import com.github.victools.jsonschema.generator.SchemaVersion;
 
-import assignments.scratch.board.Board;
 import assignments.scratch.config.Config;
+import assignments.scratch.game.Game;
 
 public class App {
   public String getSchema() {
@@ -72,8 +73,8 @@ public class App {
       return;
     }
 
-    Board board = new Board(config);
+    Game game = new Game(config, BigDecimal.valueOf(100));
 
-    System.out.println(board.getCell(0, 0));
+    System.out.println(game.play());
   }
 }

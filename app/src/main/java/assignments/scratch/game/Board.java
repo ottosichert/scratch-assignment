@@ -1,6 +1,8 @@
-package assignments.scratch.board;
+package assignments.scratch.game;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -15,11 +17,13 @@ public class Board {
   private int rows;
   private String[][] symbols;
   private String bonus;
+  private Map<String, List<int[]>> symbolCells;
 
   public Board(Config config) {
     this.columns = config.columns();
     this.rows = config.rows();
     this.symbols = new String[columns][rows];
+    this.symbolCells = new HashMap<>();
     this.populate(config);
   }
 
@@ -30,6 +34,10 @@ public class Board {
   public String getCell(int column, int row) {
     if (column < 0 || column >= this.columns || row < 0 || row >= this.rows) return null;
     return symbols[column][row];
+  }
+
+  public void setCell(int column, int row, String symbol) {
+    this.symbolCells.computeIfAbsent(symbol, v -> new ArrayList<>()).add(new int[]{ column, row });
   }
 
   private String resolveSymbol(Config config, Map<String, Integer> distribution) {
@@ -53,18 +61,23 @@ public class Board {
   }
 
   private void populate(Config config) {
+    // assign location for bonus
+    Random random = new Random();
+    int bonusColumn = random.nextInt(this.columns);
+    int bonusRow = random.nextInt(this.rows);
+    this.bonus = this.resolveSymbol(config, config.probabilities().bonusSymbols().symbols());
+    this.setCell(bonusColumn, bonusRow, this.bonus);
+
+
     // fill cells given by distribution on each coordinate
     for (int row = 0; row < this.rows; row++) {
       for (int column = 0; column < this.columns; column++) {
-        this.symbols[column][row] = this.resolveCell(config, column, row);
+        if (column == bonusColumn && row == bonusRow) continue;
+
+        String symbol = this.resolveCell(config, column, row);
+        this.setCell(column, row, symbol);
+        this.symbols[column][row] = symbol;
       }
     }
-
-    // clear one field and assign a bonus for the whole board
-    Random random = new Random();
-    int column = random.nextInt(this.columns);
-    int row = random.nextInt(this.rows);
-    this.symbols[column][row] = null;
-    this.bonus = this.resolveSymbol(config, config.probabilities().bonusSymbols().symbols());
   }
 }

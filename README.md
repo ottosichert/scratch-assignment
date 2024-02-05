@@ -2,7 +2,7 @@
 
 This repository contains an implementation of a probability-based game "Scratch". It's built on JDK 21 and uses Gradle.
 
-The instructions can be found in (ASSIGNMENT.md)[ASSIGNMENT.md].
+The instructions can be found in [ASSIGNMENT.md](ASSIGNMENT.md).
 
 ## Usage
 
