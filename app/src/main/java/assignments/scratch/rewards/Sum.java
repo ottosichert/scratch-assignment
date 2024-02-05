@@ -6,14 +6,13 @@ import java.util.List;
 import assignments.scratch.game.Board;
 import assignments.scratch.game.Result;
 
-public record Sum(List<Reward> rewards) implements Reward {
+public record Sum(List<Reward> rewards, String symbol) implements Reward {
   @Override
   public Result calculate(Board board) {
     BigDecimal total = BigDecimal.ZERO;
     for (Reward reward : this.rewards) {
       total = total.add(reward.calculate(board).calculatedAmount());
     }
-    return new Result(null, null, total);
+    return new Result(null, this.symbol, total);
   }
-  
 }

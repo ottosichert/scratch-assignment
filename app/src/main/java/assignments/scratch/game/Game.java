@@ -21,12 +21,13 @@ public class Game {
     this.reward = new Scalar(bettingAmount);
 
     // apply bonus at the end
-    Symbol bonus = this.getSymbol(board.getBonus());
+    String symbol = board.getBonus();
+    Symbol bonus = this.getSymbol(symbol);
     if (bonus != null && bonus.type() == Symbol.Type.BONUS) {
       if (bonus.impact() == Symbol.Impact.EXTRA_BONUS) {
-        this.reward = new Sum(List.of(this.reward, new Scalar(bonus.extra())));
+        this.reward = new Sum(List.of(this.reward, new Scalar(bonus.extra())), symbol);
       } else if (bonus.impact() == Symbol.Impact.MULTIPLY_REWARD) {
-        this.reward = new Product(List.of(this.reward, new Scalar(bonus.rewardMultiplier())));
+        this.reward = new Product(List.of(this.reward, new Scalar(bonus.rewardMultiplier())), symbol);
       }
     }
 
