@@ -24,6 +24,7 @@ import com.github.victools.jsonschema.generator.SchemaGeneratorConfig;
 import com.github.victools.jsonschema.generator.SchemaGeneratorConfigBuilder;
 import com.github.victools.jsonschema.generator.SchemaVersion;
 
+import assignments.scratch.board.Board;
 import assignments.scratch.config.Config;
 
 public class App {
@@ -61,13 +62,18 @@ public class App {
   }
 
   public static void main(String[] args) {
+    Config config;
     try {
       String input = Files.readString(Paths.get("src/test/resources/config.json"));
-      System.out.println(new App().parseJson(input).toString());
+      config = new App().parseJson(input);
     } catch (IOException e) {
       System.err.println("Could not read config file");
       e.printStackTrace();
+      return;
     }
-    System.out.println(new App().getSchema());
+
+    Board board = new Board(config);
+
+    System.out.println(board.getCell(0, 0));
   }
 }

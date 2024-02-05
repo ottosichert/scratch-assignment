@@ -163,6 +163,6 @@
       } ]
     }
   },
-  "required" : [ "columns", "probabilities", "rows", "symbols", "win_combinations" ],
+  "required" : [ "probabilities", "symbols", "win_combinations" ],
   "additionalProperties" : false
 }
