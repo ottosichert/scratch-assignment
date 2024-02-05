@@ -5,6 +5,7 @@ import java.util.List;
 
 import assignments.scratch.config.Config;
 import assignments.scratch.config.Symbol;
+import assignments.scratch.rewards.Product;
 import assignments.scratch.rewards.Reward;
 import assignments.scratch.rewards.Scalar;
 import assignments.scratch.rewards.Sum;
@@ -24,6 +25,8 @@ public class Game {
     if (bonus != null && bonus.type() == Symbol.Type.BONUS) {
       if (bonus.impact() == Symbol.Impact.EXTRA_BONUS) {
         this.reward = new Sum(List.of(this.reward, new Scalar(bonus.extra())));
+      } else if (bonus.impact() == Symbol.Impact.MULTIPLY_REWARD) {
+        this.reward = new Product(List.of(this.reward, new Scalar(bonus.rewardMultiplier())));
       }
     }
 
