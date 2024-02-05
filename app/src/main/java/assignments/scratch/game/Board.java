@@ -38,7 +38,7 @@ public class Board {
 
   public void setCell(int column, int row, String symbol) {
     if (symbol == null) return;
-    this.symbolCells.computeIfAbsent(symbol, v -> new ArrayList<>()).add(new int[]{ column, row });
+    this.symbolCells.computeIfAbsent(symbol, key -> new ArrayList<>()).add(new int[]{ column, row });
   }
 
   private String resolveSymbol(Config config, Map<String, Integer> distribution) {
@@ -68,7 +68,6 @@ public class Board {
     int bonusRow = random.nextInt(this.rows);
     this.bonus = this.resolveSymbol(config, config.probabilities().bonusSymbols().symbols());
     this.setCell(bonusColumn, bonusRow, this.bonus);
-
 
     // fill cells given by distribution on each coordinate
     for (int row = 0; row < this.rows; row++) {
