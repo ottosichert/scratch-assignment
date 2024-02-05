@@ -6,10 +6,16 @@ package assignments.scratch;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 public class AppTest {
   @Test
-  public void appHasASchema() {
+  public void appImplementsSchema() throws IOException {
     App classUnderTest = new App();
-    assertNotNull("app should have a schema", classUnderTest.getSchema());
+
+    String schema = Files.readString(Paths.get("src/test/resources/schema.json"));
+    assertEquals(classUnderTest.getSchema(), schema);
   }
 }

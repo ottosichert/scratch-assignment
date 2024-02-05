@@ -1,0 +1,168 @@
+{
+  "$schema" : "https://json-schema.org/draft/2020-12/schema",
+  "type" : "object",
+  "properties" : {
+    "columns" : {
+      "type" : "integer"
+    },
+    "probabilities" : {
+      "type" : "object",
+      "properties" : {
+        "bonus_symbols" : {
+          "type" : "object",
+          "properties" : {
+            "symbols" : {
+              "type" : "object",
+              "additionalProperties" : {
+                "type" : "integer"
+              }
+            }
+          },
+          "required" : [ "symbols" ],
+          "additionalProperties" : false
+        },
+        "standard_symbols" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "column" : {
+                "type" : "integer"
+              },
+              "row" : {
+                "type" : "integer"
+              },
+              "symbols" : {
+                "type" : "object",
+                "additionalProperties" : {
+                  "type" : "integer"
+                }
+              }
+            },
+            "required" : [ "column", "row", "symbols" ],
+            "additionalProperties" : false
+          }
+        }
+      },
+      "required" : [ "bonus_symbols", "standard_symbols" ],
+      "additionalProperties" : false
+    },
+    "rows" : {
+      "type" : "integer"
+    },
+    "symbols" : {
+      "allOf" : [ {
+        "type" : "object",
+        "additionalProperties" : {
+          "type" : "object",
+          "properties" : {
+            "extra" : {
+              "type" : "number"
+            },
+            "impact" : {
+              "type" : "string",
+              "enum" : [ "multiply_reward", "extra_bonus", "miss" ]
+            },
+            "reward_multiplier" : {
+              "type" : "number"
+            },
+            "type" : {
+              "type" : "string",
+              "enum" : [ "standard", "bonus" ]
+            }
+          },
+          "required" : [ "type" ],
+          "additionalProperties" : false
+        }
+      }, {
+        "additionalProperties" : {
+          "type" : "object",
+          "properties" : {
+            "extra" : {
+              "type" : "number"
+            },
+            "impact" : {
+              "type" : "string",
+              "enum" : [ "multiply_reward", "extra_bonus", "miss" ]
+            },
+            "reward_multiplier" : {
+              "type" : "number"
+            },
+            "type" : {
+              "type" : "string",
+              "enum" : [ "standard", "bonus" ]
+            }
+          },
+          "required" : [ "type" ],
+          "additionalProperties" : false
+        }
+      } ]
+    },
+    "win_combinations" : {
+      "allOf" : [ {
+        "type" : "object",
+        "additionalProperties" : {
+          "type" : "object",
+          "properties" : {
+            "count" : {
+              "type" : "integer"
+            },
+            "covered_areas" : {
+              "type" : "array",
+              "items" : {
+                "type" : "array",
+                "items" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "group" : {
+              "type" : "string"
+            },
+            "reward_multiplier" : {
+              "type" : "number"
+            },
+            "when" : {
+              "type" : "string",
+              "enum" : [ "same_symbols", "linear_symbols" ]
+            }
+          },
+          "required" : [ "group", "reward_multiplier", "when" ],
+          "additionalProperties" : false
+        }
+      }, {
+        "additionalProperties" : {
+          "type" : "object",
+          "properties" : {
+            "count" : {
+              "type" : "integer"
+            },
+            "covered_areas" : {
+              "type" : "array",
+              "items" : {
+                "type" : "array",
+                "items" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "group" : {
+              "type" : "string"
+            },
+            "reward_multiplier" : {
+              "type" : "number"
+            },
+            "when" : {
+              "type" : "string",
+              "enum" : [ "same_symbols", "linear_symbols" ]
+            }
+          },
+          "required" : [ "group", "reward_multiplier", "when" ],
+          "additionalProperties" : false
+        }
+      } ]
+    }
+  },
+  "required" : [ "columns", "probabilities", "rows", "symbols", "win_combinations" ],
+  "additionalProperties" : false
+}
