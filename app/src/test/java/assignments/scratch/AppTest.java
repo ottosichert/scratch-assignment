@@ -40,4 +40,26 @@ public class AppTest {
 
     assertEquals(help, outContent.toString());
   }
+
+  @Test
+  public void appValidatesCount() throws IOException {
+    String[] args = new String[]{ "this", "is", "invalid" };
+    String help = Files.readString(Paths.get("src/test/resources/help.txt"));
+
+    App.main(args);
+
+    assertEquals("Invalid number of arguments (got 3, expected 4)", errContent.toString().stripTrailing());
+    assertEquals(help, outContent.toString());
+  }
+
+  @Test
+  public void appValidatesOptions() throws IOException {
+    String[] args = new String[]{ "--config", "this/does/not/exist.json", "--betting-amount", "1.2.3" };
+    String help = Files.readString(Paths.get("src/test/resources/help.txt"));
+
+    App.main(args);
+
+    assertEquals("Failed to parse options", errContent.toString().stripTrailing());
+    assertEquals(help, outContent.toString());
+  }
 }
