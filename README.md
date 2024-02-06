@@ -6,6 +6,47 @@ The instructions can be found in [ASSIGNMENT.md](ASSIGNMENT.md).
 
 ## Usage
 
+First, build the project:
+
+```sh
+$ ./gradlew build
+```
+
+Then, run the JAR file:
+
+```sh
+$ java -jar app/build/libs/app.jar
+Scratch CLI
+    Calculate total reward based on probabilities and betting amount
+
+Usage:
+    java -jar scratch.jar --config config.json --betting-amount 100
+
+--config <path>
+    Relative path to JSON config file
+
+--betting-amount <decimal>
+    Initial betting amount
+
+--help
+    Prints this dialog
+```
+
+For example with the configuration from the assignment:
+
+```json
+$ java -jar app/build/libs/app.jar --config app/src/test/resources/config.json --betting-amount 100
+{
+  "applied_winning_combinations" : {
+    "E" : [ "same_symbols_diagonally_left_to_right", "same_symbol_5_times" ],
+    "F" : [ "same_symbol_3_times" ]
+  },
+  "applied_bonus_symbol" : null,
+  "matrix" : [ [ "E", "E", "F" ], [ "F", "E", "F" ], [ "E", "MISS", "E" ] ],
+  "reward" : 3150.0
+}
+```
+
 ## Configuration
 
 The board is set up with symbols, probabilities, rewards and bonuses. The schema as defined in the assignment is implemented using POJOs that are converted to a JSON schema (see [app/src/test/resources/schema.json](app/src/test/resources/schema.json)).
@@ -34,7 +75,7 @@ Inside the `Game` class, a tree of `Rewards` is generated which can look like th
 </Bonus>
 ```
 
-At the end, this tree is being evaluated by calling the `calculate(board, symbols)` method on the root `Reward` instace.
+At the end, this tree is being evaluated by calling the `calculate(board, symbols, bettingAmount)` method on the root `Reward` instance.
 
 ## Assumptions
 
