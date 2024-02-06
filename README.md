@@ -44,3 +44,4 @@ Various statements can be interpreted in different ways, so this is a list of de
 - The matrix, winning combinations and bonuses have at least one element
 - Linear symbols can take any shape and don't have to be continuous
 - Cell inputs are in correct form ("x:y")
+- Betting amount can be any decimal value

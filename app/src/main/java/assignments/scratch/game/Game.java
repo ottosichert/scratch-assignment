@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import assignments.scratch.cli.LostOutput;
+import assignments.scratch.cli.Output;
+import assignments.scratch.cli.WonOutput;
 import assignments.scratch.config.Config;
 import assignments.scratch.config.Symbol;
 import assignments.scratch.config.WinCombinations;
@@ -31,29 +34,22 @@ public class Game {
     this.wrapBonus();
   }
 
-  public Result play(BigDecimal bettingAmount) {
+  public Output play(BigDecimal bettingAmount) {
     // calculate rewards for all standard symbols
     List<String> symbols = config.symbols().entrySet().stream()
         .filter(entry -> entry.getValue().type() == Symbol.Type.STANDARD)
         .map(entry -> entry.getKey())
         .toList();
+    Result result = this.reward.calculate(this.board, symbols, bettingAmount);
+    Output output;
 
-    return this.reward.calculate(this.board, symbols, bettingAmount);
-  }
-
-  public List<List<String>> getMatrix() {
-    List<List<String>> rows = new ArrayList<>();
-
-    for (int row = 0; row < this.config.rows(); row++) {
-      List<String> columns = new ArrayList<>();
-      rows.add(columns);
-
-      for (int column = 0; column < this.config.columns(); column++) {
-        columns.add(this.board.getCell(column, row));
-      }
+    if (result.matches().size() == 0) {
+      output = new LostOutput(board.getSymbols(), result.calculatedAmount());
+    } else {
+      output = new WonOutput(board.getSymbols(), result.calculatedAmount(), result.matches(), result.bonus());
     }
 
-    return rows;
+    return output;
   }
 
   private void wrapBonus() {

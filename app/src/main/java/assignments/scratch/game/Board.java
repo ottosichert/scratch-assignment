@@ -31,6 +31,10 @@ public class Board {
     return bonus;
   }
 
+  public String[][] getSymbols() {
+    return symbols;
+  }
+
   public Map<String, List<int[]>> getSymbolCells() {
     return symbolCells;
   }

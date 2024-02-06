@@ -36,3 +36,16 @@ application {
     // Define the main class for the application.
     mainClass = "assignments.scratch.App"
 }
+
+// Build JAR
+tasks.jar {
+    manifest {
+        attributes["Main-Class"] = application.mainClass
+    }
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    from({
+        configurations.runtimeClasspath.get().filter { it.name.endsWith("jar") }.map { zipTree(it) }
+    })
+}
