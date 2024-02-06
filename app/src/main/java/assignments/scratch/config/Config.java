@@ -12,4 +12,12 @@ public record Config(
   Map<String, Symbol> symbols,
   Probabilities probabilities,
   @JsonProperty("win_combinations") Map<String, WinCombinations> winCombinations
-) {}
+) {
+  public Integer getColumns() {
+    return this.columns == null ? 3 : this.columns;
+  }
+
+  public Integer getRows() {
+    return this.rows == null ? 3 : this.rows;
+  }
+}

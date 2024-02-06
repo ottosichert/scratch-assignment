@@ -20,8 +20,8 @@ public class Board {
   private Map<String, List<int[]>> symbolCells;
 
   public Board(Config config) {
-    this.columns = config.columns();
-    this.rows = config.rows();
+    this.columns = config.getColumns();
+    this.rows = config.getRows();
     this.symbols = new String[columns][rows];
     this.symbolCells = new HashMap<>();
     this.populate(config);
