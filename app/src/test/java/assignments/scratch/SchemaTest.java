@@ -4,16 +4,19 @@
 package assignments.scratch;
 
 import org.junit.Test;
+
+import assignments.scratch.cli.Schema;
+
 import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class AppTest {
+public class SchemaTest {
   @Test
-  public void appImplementsSchema() throws IOException {
-    App classUnderTest = new App();
+  public void schemaMatchesSnapshot() throws IOException {
+    Schema classUnderTest = new Schema();
 
     String schema = Files.readString(Paths.get("src/test/resources/schema.json"));
     assertEquals(classUnderTest.getSchema(), schema);
