@@ -27,9 +27,15 @@ public class CLI {
     System.out.println();
     System.out.println("--betting-amount <decimal>");
     System.out.println("    Initial betting amount");
+    System.out.println();
+    System.out.println("--help");
+    System.out.println("    Prints this dialog");
   }
 
   public Input parse(String[] args) {
+    // trigger help dialog
+    if (args.length == 0 || (args.length == 1 && args[0].equals("--help"))) return null;
+
     if (args.length != 4) {
       System.err.println("Invalid number of arguments (got " + args.length + ", expected 4)");
       return null;
