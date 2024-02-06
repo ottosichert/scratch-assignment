@@ -16,6 +16,6 @@ public class SchemaTest {
     Schema classUnderTest = new Schema();
 
     String schema = Files.readString(Paths.get("src/test/resources/schema.json"));
-    assertEquals(classUnderTest.getSchema(), schema);
+    assertEquals(schema, classUnderTest.getSchema());
   }
 }
