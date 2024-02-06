@@ -2,15 +2,17 @@ package assignments.scratch.rewards;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.List;
 
+import assignments.scratch.config.Config;
 import assignments.scratch.config.Symbol;
 import assignments.scratch.game.Board;
 import assignments.scratch.game.Result;
 
-public record Bonus(Reward reward, String symbol, Symbol bonus) implements Reward {
+public record Bonus(Config config, Reward reward, String symbol, Symbol bonus) implements Reward {
   @Override
-  public Result calculate(Board board) {
-    Result total = this.reward().calculate(board);
+  public Result calculate(Board board, List<String> symbols, BigDecimal bettingAmount) {
+    Result total = this.reward().calculate(board, symbols, bettingAmount);
 
     // don't apply any bonus if game is lost
     if (total.calculatedAmount().equals(BigDecimal.ZERO)) {
@@ -26,5 +28,4 @@ public record Bonus(Reward reward, String symbol, Symbol bonus) implements Rewar
 
     return total;
   }
-  
 }

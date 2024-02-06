@@ -31,6 +31,10 @@ public class Board {
     return bonus;
   }
 
+  public Map<String, List<int[]>> getSymbolCells() {
+    return symbolCells;
+  }
+
   public String getCell(int column, int row) {
     if (column < 0 || column >= this.columns || row < 0 || row >= this.rows) return null;
     return symbols[column][row];
@@ -39,9 +43,11 @@ public class Board {
   public void setCell(int column, int row, String symbol) {
     if (symbol == null) return;
     this.symbolCells.computeIfAbsent(symbol, key -> new ArrayList<>()).add(new int[]{ column, row });
+    this.symbols[column][row] = symbol;
   }
 
   private String resolveSymbol(Config config, Map<String, Integer> distribution) {
+    // pick one element based on weighted distribution
     List<String> thresholds = distribution.entrySet().stream()
         .flatMap(entry -> Collections.nCopies(entry.getValue(), entry.getKey()).stream())
         .collect(Collectors.toList());
@@ -76,7 +82,6 @@ public class Board {
 
         String symbol = this.resolveCell(config, column, row);
         this.setCell(column, row, symbol);
-        this.symbols[column][row] = symbol;
       }
     }
   }

@@ -79,7 +79,7 @@
           }
           },
           {
-          "column": 1,
+          "column": 0,
           "row": 2,
           "symbols": {
               "A": 1,
@@ -91,7 +91,7 @@
           }
           },
           {
-          "column": 0,
+          "column": 1,
           "row": 0,
           "symbols": {
               "A": 1,
