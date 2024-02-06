@@ -18,13 +18,19 @@ public class Board {
   private String[][] symbols;
   private String bonus;
   private Map<String, List<int[]>> symbolCells;
+  private Random prng;
 
-  public Board(Config config) {
+  public Board(Config config, Random prng) {
     this.columns = config.getColumns();
     this.rows = config.getRows();
     this.symbols = new String[columns][rows];
     this.symbolCells = new HashMap<>();
+    this.prng = prng;
     this.populate(config);
+  }
+
+  public Board(Config config) {
+    this(config, new Random());
   }
 
   public String getBonus() {
@@ -73,9 +79,8 @@ public class Board {
 
   private void populate(Config config) {
     // assign location for bonus
-    Random random = new Random();
-    int bonusColumn = random.nextInt(this.columns);
-    int bonusRow = random.nextInt(this.rows);
+    int bonusColumn = this.prng.nextInt(this.columns);
+    int bonusRow = this.prng.nextInt(this.rows);
     this.bonus = this.resolveSymbol(config, config.probabilities().bonusSymbols().symbols());
     this.setCell(bonusColumn, bonusRow, this.bonus);
 
