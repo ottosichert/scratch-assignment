@@ -18,13 +18,11 @@ public record SameSymbols(Config config, String name, int count, BigDecimal rewa
     if (symbols.size() != 1) return zero;
 
     String symbol = symbols.getFirst();
-    BigDecimal reward = this.config.symbols().get(symbol).rewardMultiplier();
     List<int[]> cells = board.getSymbolCells().get(symbol);
 
     // only succeed on exact match
     if (cells == null || count != cells.size()) return zero;
 
-    return new Result(Map.of(symbol, List.of(this.name)), null, reward.multiply(this.rewardMultiplier));
+    return new Result(Map.of(symbol, List.of(this.name)), null, this.rewardMultiplier);
   }
-  
 }

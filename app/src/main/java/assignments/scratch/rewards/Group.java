@@ -11,22 +11,16 @@ import assignments.scratch.game.Result;
 public record Group(Config config, String name, List<Reward> rewards) implements Reward {
   @Override
   public Result calculate(Board board, List<String> symbols, BigDecimal bettingAmount) {
-    // multipliy betting amount by all matching groups
-    Result result = new Result(new HashMap<>(), null, bettingAmount);
-
+    // multiply all multipliers of all matching groups
     for (Reward reward : this.rewards) {
-      Result next = reward.calculate(board, symbols, bettingAmount);
+      Result result = reward.calculate(board, symbols, bettingAmount);
 
-      if (!next.matches().isEmpty()) {
-        result = result.merge(new Result(next.matches(), null, next.calculatedAmount().multiply(result.calculatedAmount())));
+      // only match one element per group
+      if (!result.matches().isEmpty()) {
+        return result;
       }
     }
 
-    // only return if any rewards have matched
-    if (result.matches().isEmpty()) {
-      return new Result(new HashMap<>(), null, BigDecimal.ZERO);
-    }
-
-    return result;
+    return new Result(new HashMap<>(), null, BigDecimal.ZERO);
   }
 }

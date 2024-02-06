@@ -11,6 +11,7 @@ import assignments.scratch.config.Symbol;
 import assignments.scratch.config.WinCombinations;
 import assignments.scratch.rewards.Bonus;
 import assignments.scratch.rewards.Group;
+import assignments.scratch.rewards.LinearSymbols;
 import assignments.scratch.rewards.Reward;
 import assignments.scratch.rewards.SameSymbols;
 import assignments.scratch.rewards.Win;
@@ -74,6 +75,8 @@ public class Game {
 
       if (combination.when() == WinCombinations.When.SAME_SYMBOLS) {
         rewards.add(new SameSymbols(this.config, entry.getKey(), combination.count(), combination.rewardMultiplier()));
+      } else if (combination.when() == WinCombinations.When.LINEAR_SYMBOLS) {
+        rewards.add(new LinearSymbols(this.config, entry.getKey(), combination.coveredAreas(), combination.rewardMultiplier()));
       }
     }
 
