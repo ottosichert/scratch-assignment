@@ -17,7 +17,8 @@ repositories {
 
 dependencies {
     // Use JUnit test framework.
-    testImplementation(libs.junit)
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
 
     // This dependency is used by the application.
     implementation(libs.guava)
@@ -35,6 +36,10 @@ java {
 application {
     // Define the main class for the application.
     mainClass = "assignments.scratch.App"
+}
+
+tasks.test {
+    useJUnitPlatform()
 }
 
 // Build JAR

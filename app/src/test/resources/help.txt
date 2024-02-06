@@ -1,0 +1,14 @@
+Scratch CLI
+    Calculate total reward based on probabilities and betting amount
+
+Usage:
+    java -jar scratch.jar --config config.json --betting-amount 100
+
+--config <path>
+    Relative path to JSON config file
+
+--betting-amount <decimal>
+    Initial betting amount
+
+--help
+    Prints this dialog
