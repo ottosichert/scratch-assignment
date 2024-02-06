@@ -21,4 +21,21 @@ public class BoardTest {
     assertEquals(3, classUnderTest.getSymbols().length);
     assertEquals(3, classUnderTest.getSymbols()[2].length);
   }
+
+  @Test
+  public void boardSimpleBoard() throws IOException {
+    List<Probabilities.StandardSymbols> symbols = List.of(
+      new Probabilities.StandardSymbols(0, 0, Map.of("1", 1)),
+      new Probabilities.StandardSymbols(1, 0, Map.of("2", 1)),
+      new Probabilities.StandardSymbols(0, 1, Map.of("3", 1)),
+      new Probabilities.StandardSymbols(1, 1, Map.of("4", 1))
+    );
+    Config config = new Config(2, 2, Map.of(), new Probabilities(symbols, new Probabilities.BonusSymbols(Map.of())), Map.of());
+    Board classUnderTest = new Board(config);
+
+    assertEquals("1", classUnderTest.getCell(0, 0));
+    assertEquals("2", classUnderTest.getCell(1, 0));
+    assertEquals("3", classUnderTest.getCell(0, 1));
+    assertEquals("4", classUnderTest.getCell(1, 1));
+  }
 }
