@@ -64,7 +64,7 @@ public class Board {
 
     if (thresholds.isEmpty()) return null;
 
-    Collections.shuffle(thresholds);
+    Collections.shuffle(thresholds, this.prng);
     return thresholds.getFirst();
   }
 

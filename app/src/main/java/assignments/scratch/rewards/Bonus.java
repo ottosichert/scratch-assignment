@@ -15,7 +15,7 @@ public record Bonus(Config config, Reward reward, String symbol, Symbol bonus) i
     Result total = this.reward().calculate(board, symbols, bettingAmount);
 
     // don't apply any bonus if game is lost
-    if (total.calculatedAmount().equals(BigDecimal.ZERO)) {
+    if (total.matches().size() == 0) {
       return new Result(new HashMap<>(), null, BigDecimal.ZERO);
     }
 

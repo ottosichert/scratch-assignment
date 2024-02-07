@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import assignments.scratch.cli.LostOutput;
 import assignments.scratch.cli.Output;
@@ -25,13 +26,17 @@ public class Game {
   private Reward reward;
   private Map<String, Reward> groups;
 
-  public Game(Config config) {
+  public Game(Config config, Random prng) {
     this.config = config;
     this.groups = this.prepareGroups(config);
-    this.board = new Board(config);
+    this.board = new Board(config, prng);
     this.reward = new Win(config, this.groups);
 
     this.wrapBonus();
+  }
+
+  public Game(Config config) {
+    this(config, new Random());
   }
 
   public Output play(BigDecimal bettingAmount) {
